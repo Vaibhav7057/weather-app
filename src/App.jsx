@@ -75,12 +75,25 @@ function App() {
 
   const handleSearch = (e) => {
     e.preventDefault();
+
     if (city.trim() === "") {
       setEmptyError(true);
       return;
     }
     setEmptyError(false);
     throttledSearch(city);
+  };
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (city.trim() === "") {
+        setEmptyError(true);
+        return;
+      }
+      setEmptyError(false);
+      throttledSearch(city);
+    }
+    return;
   };
 
   return (
@@ -91,11 +104,12 @@ function App() {
             type="text"
             className="city-input"
             value={city}
+            onKeyDown={handleEnter}
             onChange={(e) => {
               e.preventDefault();
-              setEmptyError(false);
               setCity(e.target.value);
             }}
+            onFocus={(e) => setEmptyError(false)}
             placeholder="Search City..."
           />
           {emptyError && (
