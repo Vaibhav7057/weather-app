@@ -5,7 +5,7 @@ import SearchCity from "./components/SearchCity";
 import Notfound from "./components/Notfound";
 import { throttle } from "lodash";
 
-const API_KEY = "b73efc634c1357223fc2ebfcb846411d";
+const apikey = import.meta.env.VITE_API_KEY;
 const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
 function App() {
   const [weather, setWeather] = useState(null);
@@ -42,10 +42,10 @@ function App() {
 
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apikey}&units=metric`
       );
       const forecast = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apikey}&units=metric`
       );
       if (!response.ok && !forecast.ok)
         throw new Error("API limit reached or invalid city");
